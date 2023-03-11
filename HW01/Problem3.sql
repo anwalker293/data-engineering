@@ -4,5 +4,5 @@ necessary to answer all the provided questions. Be sure to include a comment for
 column explaining why you chose the data type that you did for that column.
 */
 
-CREATE TABLE
+CREATE TABLE analysis;
 

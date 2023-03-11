@@ -11,18 +11,17 @@ query itself.
 -- Part A
 -- What is the earliest formed band in the data set?
 ----------------------------------------------------------------------
--- ANSWER:
--- Description:
+-- ANSWER: Alice Cooper, in 1964
+-- Description: I first wanted to more investigate the data set, so 
+--   I just asked for all of the rows in metal_bands, for all of the 
+--   information, and ordered by date/formed (ascending, also, just
+--   in case). Then, for preciseness (idk? accounting for points
+--   possibly taken), cleaned up the query a little bit (e.g. adding
+--   distinct, even though probably was unnecessary)
 -- Query below
-
-
-
-
-
-
-
-
-
+SELECT DISTINCT band_name, formed -- could also do * for more info
+FROM metal_bands
+ORDER BY formed ASC;
 
 
 ----------------------------------------------------------------------
