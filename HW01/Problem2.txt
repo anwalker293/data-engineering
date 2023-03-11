@@ -1,0 +1,3 @@
+Record the output of running `SHOW server_version;` below!
+
+
