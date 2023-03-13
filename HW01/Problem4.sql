@@ -28,37 +28,47 @@ ORDER BY formed ASC;
 -- Part B
 -- How many rows are duplicated?
 ----------------------------------------------------------------------
--- ANSWER:
--- Description:
+-- ANSWER: 51
+-- Description: At first, I just wanted to query the items that were duplicates
+-- (actually, I wanted to save this column output into a variable somehow, but 
+-- I was unsure how to do that, so I saved it into a temporary table instead); 
+-- thus, the first query groups by each band name and then, if it occurs more
+-- than once (AKA it's a duplicate), the query will pick it up. In order to
+-- account for the fact that COUNT(*) will also sum up the original row, I
+-- subtract 1 for each of these (only summing up the duplicates).
+-- Thus, in the second query, I sum over the num_duplicates column to get
+-- the total number of duplicate metal bands.
+-- (I just did duplicate metal bands, assuming copyright for metal bands
+-- having the same name/being distinct)
 -- Query below
+CREATE TEMP TABLE duplicates AS (
+  SELECT band_name, COUNT(*)-1 as num_duplicates
+	FROM metal_bands
+	GROUP BY band_name
+	HAVING COUNT(*) > 1
+);
 
-
-
-
-
-
-
-
-
-
+SELECT SUM(num_duplicates)
+FROM duplicates;
 
 ----------------------------------------------------------------------
 -- Part C
--- How many bands have "death" appearing in their name?
+-- How many bands have the colors black or white appearing somewhere in their name (case insensitive here)? 
 ----------------------------------------------------------------------
--- ANSWER:
--- Description:
+-- ANSWER: 62
+-- Description: In the first query, (a) I made sure to query all band names that contained white or black 
+-- (case insensitive) by using ILIKE below. Then (b) queried for all distinct bands (no repeats, please!).
+-- Finally, to be able to sum up how much we have, I followed a similar technique as to part B 
+-- (creating a temporary table and using COUNT over the column).
 -- Query below
-
-
-
-
-
-
-
-
-
-
+CREATE TEMP TABLE sub_bands AS (
+  SELECT DISTINCT band_name
+	FROM metal_bands
+	WHERE (band_name ILIKE '%white%' OR band_name ILIKE '%black%')
+ );
+ 
+SELECT COUNT(band_name)
+FROM sub_bands;
 
 ----------------------------------------------------------------------
 -- Part D
