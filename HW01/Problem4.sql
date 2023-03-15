@@ -74,26 +74,32 @@ FROM sub_bands;
 -- Part D
 -- Second most popular German "Viking folk" style band?
 ----------------------------------------------------------------------
--- ANSWER:
--- Description:
+-- ANSWER: Crom
+-- Description: I just did a similar thing as above: query the bands
+--   with Germany in its origin (lowercase, uppercase, etc.) and
+--   with Viking folk in its style (lowercase, ...). Then ordered by fans
+--   to get the results in order from highest to lowest which was popular.
+--   (Maybe unnecessary extra steps) Then skipped the first row with offset
+--   and then skipped all remaining rows but the second. Thus, got the second
+--   most popular German "Viking folk" style band to be Crom.
 -- Query below
-
-
-
-
-
-
-
-
-
-
+-- (Probably too specific, delete the last two lines to be less specific)
+-- (I also like viewing all the information, so maybe do * instead of band_name?)
+SELECT band_name
+FROM metal_bands
+WHERE (origin ILIKE '%Germany%' AND style ILIKE '%Viking folk%')
+ORDER BY fans
+OFFSET 1 ROWS
+FETCH NEXT 1 ROWS ONLY;
 
 ----------------------------------------------------------------------
 -- Part E
--- Number of bands which formed and split in the same year?
+-- Assuming that a split value of NULL implies the band is still together (which
+--   admittedly, is a pretty big assumption), what is the oldest band in the database
+--   that is still together?
 ----------------------------------------------------------------------
 -- ANSWER:
--- Description:
+-- Description: How tragic!
 -- Query below
 
 
